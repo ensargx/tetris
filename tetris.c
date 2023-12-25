@@ -206,7 +206,7 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
 
 void rotateBlock(Tetromino *block, int height, int width, char board[height][width])
 {
-    /* rotates the tetromino if possible*/
+    /* rotates the tetromino */
     int rotation = block->rotation;
     rotation++;
     rotation %= 4;
