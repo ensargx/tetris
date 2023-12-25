@@ -170,8 +170,7 @@ void new_block(Tetromino *block, Tetromino *next_block, int height, int width, c
 
     for (int i = 1; i < 3; i++)
     {
-        move_cursor(PADDING_LEFT + g_width + 3, PADDING_TOP + 2 + i);
-        printf("│");
+        move_cursor(PADDING_LEFT + g_width + 4, PADDING_TOP + 2 + i);
         for (int j = 0; j < 4; j++)
         {
             if (next_block->shape[i][j] == '*')
@@ -183,17 +182,7 @@ void new_block(Tetromino *block, Tetromino *next_block, int height, int width, c
                 printf(" ");
             }
         }
-        printf("│\n");
     }
-
-    move_cursor(PADDING_LEFT + g_width + 3, PADDING_TOP + 5);
-    printf("└");
-    for (int i = 0; i < 4; i++)
-    {
-        printf("─");
-    }
-    printf("┘\n");
-
 
     // RE-render shadow
     Tetromino shadow = *block;
@@ -212,6 +201,7 @@ void new_block(Tetromino *block, Tetromino *next_block, int height, int width, c
             }
         }
     }
+    fflush(stdout);
     move_cursor(0, 0); 
 }
 
@@ -276,6 +266,7 @@ void* timerThread(void* args)
             }
         }
         move_cursor(0, 0);
+        fflush(stdout);
     }
 }
 
@@ -414,7 +405,8 @@ int main()
     int level = 1;
     int speed = 1000; // ms per block, the lower the faster
 
-    setbuf(stdout, NULL);
+    // setbuf(stdout, NULL);
+
 
     // set rand seed
     srand(time(NULL));
@@ -656,7 +648,7 @@ int main()
         {
             for (int j = 0; j < 4; j++)
             {
-                if (shadow.shape[i][j] == '*')
+                if (shadow.shape[i][j] == '*' && board[shadow.y + i][shadow.x + j] != '*' && shadow.y != block.y)
                 {
                     move_cursor(PADDING_LEFT + shadow.x + j + 1, PADDING_TOP + shadow.y + i + 1);
                     printf("◌");
