@@ -11,6 +11,14 @@
 #define PADDING_TOP 2
 #define PADDING_LEFT 4
 
+void clean_stdin()
+{
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+}
+
 void clearScreen()
 {
 #ifdef _WIN32
@@ -88,10 +96,9 @@ int collisionCheck(Tetromino *block, int height, int width, char board[height][w
     return 0;
 }
 
-void initBoard(int height, int width, char board[height][width], Tetromino block, Tetromino nextBlock)
+void renderBoard(int height, int width, char board[height][width], int level, int score, int maxScore, Tetromino block, Tetromino nextBlock)
 {
         clearScreen();
-
         /* render board */
         moveCursor(PADDING_LEFT, PADDING_TOP);
         printf("┌");
@@ -108,7 +115,7 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
             printf("│");
             for (j = 0; j < width; j++)
             {
-                printf(" ");
+                printf("%c", board[i][j]);
             }
             printf("│\n");
         }
@@ -119,7 +126,6 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
             printf("─");
         }
         printf("┘\n");
-
         /* render shadow of the block */
         Tetromino shadow = block;
         while (!collisionCheck(&shadow, height, width, board, 0, 1))
@@ -137,7 +143,6 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
                 }
             }
         }
-
         /* render block */
         for (i = 0; i < 4; i++)
         {
@@ -150,7 +155,6 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
                 }
             }
         }
-
         /* render next block */
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 1);
         printf("Next block:");
@@ -161,7 +165,6 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
             printf("─");
         }
         printf("┐\n");
-
         for (i = 1; i < 3; i++)
         {
             moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 2 + i);
@@ -179,7 +182,6 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
             }
             printf("│\n");
         }
-
         moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 5);
         printf("└");
         for (i = 0; i < 4; i++)
@@ -187,21 +189,20 @@ void initBoard(int height, int width, char board[height][width], Tetromino block
             printf("─");
         }
         printf("┘\n");
-
+        /* render level */
+        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 7);
+        printf("Level: %d", level);
         /* render score */
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 8);
-        printf("Max score: 0");
+        printf("Max score: %d", maxScore);
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 9);
-        printf("Score: 0");
-
+        printf("Score: %d", score);
         /* render controls */
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 11);
         printf("Controls:");
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 12);
         printf("←a  →d  ↑w  ↓space Xq");
-
         moveCursor(0, 0);
-
 }
 
 void rotateBlock(Tetromino *block, int height, int width, char board[height][width])
@@ -276,15 +277,37 @@ int main()
     int height;
     int width;
 
-    printf("Enter width and height: ");
-    scanf("%d %d", &height, &width);
-
     /* set random seed */
     srand(time(NULL));
 
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
+
+    char banner[] = {
+        " _____    _        _        ____\n"
+        "|_   _|__| |_ _ __(_)___   / ___| __ _ _ __ ___   ___\n"
+        "  | |/ _ \\ __| '__| / __| | |  _ / _` | '_ ` _ \\ / _ \\\n"
+        "  | |  __/ |_| |  | \\__ \\ | |_| | (_| | | | | | |  __/\n"
+        "  |_|\\___|\\__|_|  |_|___/  \\____|\\__,_|_| |_| |_|\\___|\n"
+        " 1- Scores:                                 byEnsarGok\n"
+        "    - 100 points for 1 line\n"
+        "    - 250 points for 2 lines\n"
+        "    - 500 points for 3 lines\n"
+        "    - 1000 points for 4 lines\n"
+        " 2- Controls:\n"
+        "    - ←a  Move left\n"
+        "    - →d  Move right\n"
+        "    - ↑w  Rotate block\n"
+        "    - ↓space  Drop\n"
+        "    - Xq  Quit\n"
+        " 3- Score 1000 points to level up\n"
+        " 4- Press q to quit               (eg. 15x10)\n"
+        " Enter height and width to start: "
+    };
+
+    printf("%s", banner);
+    scanf("%dx%d", &height, &width);
 
     Tetromino tetrominos[7] = 
     {
@@ -381,7 +404,7 @@ int main()
     Tetromino block = getRandomBlock(tetrominos, width);
     Tetromino nextBlock = getRandomBlock(tetrominos, width);
 
-    initBoard(height, width, board, block, nextBlock);
+    renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
 
     int quit = 0;
     while(!quit)
@@ -504,116 +527,7 @@ int main()
         }
 
         /* RENDER */
-        clearScreen();
-
-        /* render board */
-        moveCursor(PADDING_LEFT, PADDING_TOP);
-        printf("┌");
-        for (i = 0; i < width; i++)
-        {
-            printf("─");
-        }
-        printf("┐\n");
-        for (i = 0; i < height; i++)
-        {
-            moveCursor(PADDING_LEFT, PADDING_TOP + i + 1);
-            printf("│");
-            for (j = 0; j < width; j++)
-            {
-                printf("%c", board[i][j]);
-            }
-            printf("│\n");
-        }
-        moveCursor(PADDING_LEFT, PADDING_TOP + height + 1);
-        printf("└");
-        for (i = 0; i < width; i++)
-        {
-            printf("─");
-        }
-        printf("┘\n");
-
-        /* render shadow of the block */
-        Tetromino shadow = block;
-        while (!collisionCheck(&shadow, height, width, board, 0, 1))
-        {
-            shadow.y++;
-        }
-        for (i = 0; i < 4; i++)
-        {
-            for (j = 0; j < 4; j++)
-            {
-                if (shadow.shape[i][j] == '*' && board[shadow.y + i][shadow.x + j] != '*' && shadow.y != block.y)
-                {
-                    moveCursor(PADDING_LEFT + shadow.x + j + 1, PADDING_TOP + shadow.y + i + 1);
-                    printf("◌");
-                }
-            }
-        }
-
-        /* render block */
-        for (i = 0; i < 4; i++)
-        {
-            for (j = 0; j < 4; j++)
-            {
-                if (block.shape[i][j] == '*')
-                {
-                    moveCursor(PADDING_LEFT + block.x + j + 1, PADDING_TOP + block.y + i + 1);
-                    printf("*");
-                }
-            }
-        }
-
-        /* render next block */
-        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 1);
-        printf("Next block:");
-        moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 2);
-        printf("┌");
-        for (i = 0; i < 4; i++)
-        {
-            printf("─");
-        }
-        printf("┐\n");
-
-        for (i = 1; i < 3; i++)
-        {
-            moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 2 + i);
-            printf("│");
-            for (j = 0; j < 4; j++)
-            {
-                if (nextBlock.shape[i][j] == '*')
-                {
-                    printf("*");
-                }
-                else
-                {
-                    printf(" ");
-                }
-            }
-            printf("│\n");
-        }
-
-        moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 5);
-        printf("└");
-        for (i = 0; i < 4; i++)
-        {
-            printf("─");
-        }
-        printf("┘\n");
-
-        /* render score */
-        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 8);
-        printf("Max score: %d", maxScore);
-        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 9);
-        printf("Score: %d", score);
-
-        /* render controls */
-        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 11);
-        printf("Controls:");
-        moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 12);
-        printf("←a  →d  ↑w  ↓space Xq");
-
-        moveCursor(0, 0);
-
+        renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
     }
 
     /* game over */
@@ -645,11 +559,16 @@ int main()
     }
     else
     {
-        moveCursor(0, PADDING_TOP + height + 2);
         quit = 1;
     }
 
     }
+
+    /* press any key to exit */
+    moveCursor(0, PADDING_TOP + height + 2);
+    printf("Press enter to continue...");
+    clean_stdin();
+    getchar();
 
     return 0;
 }
