@@ -1,6 +1,6 @@
 # Tetris
 BLM1011 Bilgisayar Bilimlerine Giriş Proje Ödevi - Ensar GÖK
-> Ödevin Github versiyonuna **[buradan](https://github.com/ensargx/tetris)** ulaşabilirsiniz. 
+> Ödevin Github versiyonuna **[buradan](https://github.com/ensargx/tetris)** ulaşabilirsiniz.
 
 ## Menü
 
@@ -32,91 +32,91 @@ BLM1011 Bilgisayar Bilimlerine Giriş Proje Ödevi - Ensar GÖK
 ```c
 typedef struct
 {
-	char shape[4][4];
-	int x;
-	int y;
-	int rotation;
+    char shape[4][4];
+    int x;
+    int y;
+    int rotation;
 } Tetromino;
 
 Tetromino tetrominos[7] =
 {
     {
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{'*', '*', '*', '*'},
-		{' ', ' ', ' ', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{'*', ' ', ' ', ' '},
-		{'*', '*', '*', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{' ', ' ', '*', ' '},
-		{'*', '*', '*', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{' ', '*', '*', ' '},
-		{' ', '*', '*', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{'*', '*', '*', ' '},
-		{' ', '*', ' ', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{' ', '*', '*', ' '},
-		{'*', '*', ' ', ' '},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	},
-	{
-	.shape = {
-		{' ', ' ', ' ', ' '},
-		{' ', '*', '*', ' '},
-		{' ', ' ', '*', '*'},
-		{' ', ' ', ' ', ' '}
-	},
-	.x = 0,
-	.y = 0,
-	.rotation = 0
-	}
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {'*', '*', '*', '*'},
+        {' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {'*', ' ', ' ', ' '},
+        {'*', '*', '*', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {' ', ' ', '*', ' '},
+        {'*', '*', '*', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {' ', '*', '*', ' '},
+        {' ', '*', '*', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {'*', '*', '*', ' '},
+        {' ', '*', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {' ', '*', '*', ' '},
+        {'*', '*', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    },
+    {
+    .shape = {
+        {' ', ' ', ' ', ' '},
+        {' ', '*', '*', ' '},
+        {' ', ' ', '*', '*'},
+        {' ', ' ', ' ', ' '}
+    },
+    .x = 0,
+    .y = 0,
+    .rotation = 0
+    }
 };
 ```
 > Tüm Tetrominolar'ın 4x4'lük şekli vardır. Oyundaki 7 farklı Tetromino **' '** ve **'*'** karakteriyle oluşturulmuştur.
@@ -128,27 +128,27 @@ ch = getChar();
 switch (ch)
 {
 case 'a':
-	if (!collisionCheck(&block, height, width, board, -1, 0))
-	block.x--;
-	break;
+    if (!collisionCheck(&block, height, width, board, -1, 0))
+    block.x--;
+    break;
 case 'd':
-	if (!collisionCheck(&block, height, width, board, 1, 0))
-	block.x++;
-	break;
+    if (!collisionCheck(&block, height, width, board, 1, 0))
+    block.x++;
+    break;
 case 'w':
-	rotateBlock(&block, height, width, board);
-	break;
+    rotateBlock(&block, height, width, board);
+    break;
 case 'q':
-	isGameRunning  =  0;
-	break;
+    isGameRunning  =  0;
+    break;
 case ' ':
-	while (!collisionCheck(&block, height, width, board, 0, 1))
-	{
-		block.y++;
-	}
-	break;
+    while (!collisionCheck(&block, height, width, board, 0, 1))
+    {
+        block.y++;
+    }
+    break;
 default:
-	break;
+    break;
 }
 ```
 > *getChar* fonksiyonu ile kullanıcıdan giriş alınmıştır. Alınan girişe göre mevcut blok **eğer çakışma olmuyorsa** istenilen  pozisyona getirilmektedir.
@@ -164,30 +164,30 @@ default:
 ```c
 int collisionCheck(Tetromino *block, int height, int width, char board[height][width], int delta_x, int delta_y)
 {
-	int i;
-	int j;
-	for (i = 0; i < 4; i++)
-	{
-		for (j = 0; j < 4; j++)
-		{
-			if (block->shape[i][j] == '*')
-			{
-				if (block->x + j + delta_x < 0 || block->x + j + delta_x >= width)
-				{
-					return 1;
-				}
-				if (block->y + i + delta_y >= height)
-				{
-					return 1;
-				}
-				if (board[block->y + i + delta_y][block->x + j + delta_x] == '*')
-				{
-					return 1;
-				}
-			}
-		}
-	}
-	return 0;
+    int i;
+    int j;
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if (block->shape[i][j] == '*')
+            {
+                if (block->x + j + delta_x < 0 || block->x + j + delta_x >= width)
+                {
+                    return 1;
+                }
+                if (block->y + i + delta_y >= height)
+                {
+                    return 1;
+                }
+                if (board[block->y + i + delta_y][block->x + j + delta_x] == '*')
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
 }
 ```
 Fonksiyon verilen bloğun tüm şeklini kontrol edip *'\*'* karakterinin olduğu yerlerin dolu olup olmadığını kontrol eder.
@@ -201,97 +201,96 @@ Fonksiyon verilen bloğun tüm şeklini kontrol edip *'\*'* karakterinin olduğu
 ```c
 void rotateBlock(Tetromino *block, int height, int width, char board[height][width])
 {
-	/* rotates the tetromino */
-	int rotation = block->rotation;
-	rotation++;
-	rotation %= 4;
-	block->rotation = rotation;
-	  
-	char temp[4][4];
-	int i;
-	for (i = 0; i < 4; i++)
-	{
-		temp[i][0] = block->shape[3][i];
-		temp[i][1] = block->shape[2][i];
-		temp[i][2] = block->shape[1][i];
-		temp[i][3] = block->shape[0][i];
-	}
-	  
-	for (i  =  0; i  <  4; i++)
-	{
-		block->shape[i][0] = temp[i][0];
-		block->shape[i][1] = temp[i][1];
-		block->shape[i][2] = temp[i][2];
-		block->shape[i][3] = temp[i][3];
-	}
-	  
-	if (!collisionCheck(block, height, width, board, 0, 0))
-	{
-		return;
-	}
-	  
-	if (!collisionCheck(block, height, width, board, -1, 0))
-	{
-		block->x--;
-		return;
-	}
-	  
-	if (!collisionCheck(block, height, width, board, 1, 0))
-	{
-		block->x++;
-		return;
-	}
-	  
-	if (!collisionCheck(block, height, width, board, 0, -1))
-	{
-		block->y--;
-		return;
-	}
-	  
-	if (!collisionCheck(block, height, width, board, -2, 0))
-	{
-		block->x -= 2;
-		return;
-	}
-	  
-	if (!collisionCheck(block, height, width, board, 2, 0))
-	{
-		block->x += 2;
-		return;
-	}
+    /* rotates the tetromino */
+    int rotation = block->rotation;
+    rotation++;
+    rotation %= 4;
+    block->rotation = rotation;
+
+    char temp[4][4];
+    int i;
+    for (i = 0; i < 4; i++)
+    {
+        temp[i][0] = block->shape[3][i];
+        temp[i][1] = block->shape[2][i];
+        temp[i][2] = block->shape[1][i];
+        temp[i][3] = block->shape[0][i];
+    }
+
+    for (i  =  0; i  <  4; i++)
+    {
+        block->shape[i][0] = temp[i][0];
+        block->shape[i][1] = temp[i][1];
+        block->shape[i][2] = temp[i][2];
+        block->shape[i][3] = temp[i][3];
+    }
+
+    if (!collisionCheck(block, height, width, board, 0, 0))
+    {
+        return;
+    }
+
+    if (!collisionCheck(block, height, width, board, -1, 0))
+    {
+        block->x--;
+        return;
+    }
+
+    if (!collisionCheck(block, height, width, board, 1, 0))
+    {
+        block->x++;
+        return;
+    }
+
+    if (!collisionCheck(block, height, width, board, 0, -1))
+    {
+        block->y--;
+        return;
+    }
+
+    if (!collisionCheck(block, height, width, board, -2, 0))
+    {
+        block->x -= 2;
+        return;
+    }
+
+    if (!collisionCheck(block, height, width, board, 2, 0))
+    {
+        block->x += 2;
+        return;
+    }
 }
 ```
 > Döndürmek için bloğun satılarını ve sütunlarını değiştiriyoruz.
 > Eğer çakışma durumu varsa engelleyecek şekilde bloğa gerekli işlemi yapıyor.
 
 ## Bloğun Yerde Olması
-Bir blok eğer altı doluysa bulunduğu konumda tahtaya eklenir. 
+Bir blok eğer altı doluysa bulunduğu konumda tahtaya eklenir.
 
 ```c
 if (collisionCheck(&block, height, width, board, 0, 1))
 {
-	for (i = 0; i < 4; i++)
-	{
-		for (j = 0; j < 4; j++)
-		{
-			if (block.shape[i][j] == '*')
-			{
-				board[block.y + i][block.x + j] = '*';
-			}
-		}
-	}
-	block = nextBlock;
-	if (collisionCheck(&block, height, width, board, 0, 0))
-	{
-		isGameRunning = 0;
-	}
-	nextBlock = getRandomBlock(tetrominos, width);
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if (block.shape[i][j] == '*')
+            {
+                board[block.y + i][block.x + j] = '*';
+            }
+        }
+    }
+    block = nextBlock;
+    if (collisionCheck(&block, height, width, board, 0, 0))
+    {
+        isGameRunning = 0;
+    }
+    nextBlock = getRandomBlock(tetrominos, width);
 }
 ```
 
 ## Satırın Dolması
 Eğer oyunda herhangi bir satır tamamen dolduysa o satır silinir ve üstündeki satırlar aşağıya iner.
--- Puanlama:
 - **1 Satır** -> 100 puan.
 - **2 Satır** -> 250 puan.
 - **3 Satır** -> 500 puan.
@@ -304,60 +303,60 @@ int j;
 int k;
 for (i = 0; i < height; i++)
 {
-	int is_full = 1;
-	for (j = 0; j < width; j++)
-	{
-		if (board[i][j] != '*')
-		{
-			is_full = 0;
-		}
-	}
-	if (is_full)
-	{
-		isRowFull[i] = 1;
-		fullRowCount++;
-		/* move all rows above down */
-		for (k = i; k > 0; k--)
-		{
-			for (j = 0; j < width; j++)
-			{
-				board[k][j] = board[k - 1][j];
-			}
-		}
-	}
+    int is_full = 1;
+    for (j = 0; j < width; j++)
+    {
+        if (board[i][j] != '*')
+        {
+            is_full = 0;
+        }
+    }
+    if (is_full)
+    {
+        isRowFull[i] = 1;
+        fullRowCount++;
+        /* move all rows above down */
+        for (k = i; k > 0; k--)
+        {
+            for (j = 0; j < width; j++)
+            {
+                board[k][j] = board[k - 1][j];
+            }
+        }
+    }
 }
 switch (fullRowCount)
 {
 case  1:
-	score += 100;
-	break;
+    score += 100;
+    break;
 case  2:
-	score += 250;
-	break;
+    score += 250;
+    break;
 case  3:
-	score += 500;
-	break;
+    score += 500;
+    break;
 case  4:
-	score += 1000;
-	break;
+    score += 1000;
+    break;
 default:
-	break;
+    break;
 }
 if (score >= level * 1000)
 {
-	level++;
+    level++;
 }
-  
+
 /* check if top row is full */
 for (j = 0; j < width; j++)
 {
-	if (board[0][j] == '*')
-	{
-		isGameRunning = 0;
-	}
+    if (board[0][j] == '*')
+    {
+        isGameRunning = 0;
+    }
 }
 ```
 > Her 1000 puanda seviye atlanır.
-> Ödevde istenilen '**Oyun tahtasının en üst hattında herhangi bir parçası bulunuyorsa program sona ermelidir.**' burada implement edilmiştir.  
+> Ödevde istenilen '**Oyun tahtasının en üst hattında herhangi bir parçası bulunuyorsa program sona ermelidir.**' burada implement edilmiştir.
 ---
 Ensar GÖK - 22011032
