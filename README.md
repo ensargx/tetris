@@ -1,6 +1,8 @@
 # Tetris
 BLM1011 Bilgisayar Bilimlerine Giriş Proje Ödevi - Ensar GÖK
 > Ödevin Github versiyonuna **[buradan](https://github.com/ensargx/tetris)** ulaşabilirsiniz.
+> 
+> Ödevin Youtube videosuna **[buradan](https://www.youtube.com/watch?v=RQIwropb2ng)** ulaşabilirsiniz. 
 
 ## Menü
 
@@ -25,7 +27,9 @@ BLM1011 Bilgisayar Bilimlerine Giriş Proje Ödevi - Ensar GÖK
  4- Press q to quit               (eg. 15x10)
  Enter height and width to start:
 ```
-> Puanlandırma ve oyun kontrolleri menüde belirtilmiştir. Oyun başlamadan önce kullanıcıdan oyun tahtasının boyutu istenmektedir.
+> Puanlandırma ve oyun kontrolleri menüde belirtilmiştir.
+>
+> Oyun başlamadan önce kullanıcıdan oyun tahtasının boyutu istenmektedir.
 
 ## Tetromino
 
@@ -119,7 +123,9 @@ Tetromino tetrominos[7] =
     }
 };
 ```
-> Tüm Tetrominolar'ın 4x4'lük şekli vardır. Oyundaki 7 farklı Tetromino **' '** ve **'*'** karakteriyle oluşturulmuştur.
+> Tüm Tetrominolar'ın 4x4'lük şekli vardır.
+>
+> Oyundaki 7 farklı Tetromino **' '** ve **'*'** karakteriyle oluşturulmuştur.
 
 ## Kullanıcıdan Giriş Alma
 ```c
@@ -217,7 +223,7 @@ void rotateBlock(Tetromino *block, int height, int width, char board[height][wid
         temp[i][3] = block->shape[0][i];
     }
 
-    for (i  =  0; i  <  4; i++)
+    for (i = 0; i < 4; i++)
     {
         block->shape[i][0] = temp[i][0];
         block->shape[i][1] = temp[i][1];
@@ -262,6 +268,7 @@ void rotateBlock(Tetromino *block, int height, int width, char board[height][wid
 }
 ```
 > Döndürmek için bloğun satılarını ve sütunlarını değiştiriyoruz.
+> 
 > Eğer çakışma durumu varsa engelleyecek şekilde bloğa gerekli işlemi yapıyor.
 
 ## Bloğun Yerde Olması
@@ -357,6 +364,7 @@ for (j = 0; j < width; j++)
 }
 ```
 > Her 1000 puanda seviye atlanır.
+> 
 > Ödevde istenilen '**Oyun tahtasının en üst hattında herhangi bir parçası bulunuyorsa program sona ermelidir.**' burada implement edilmiştir.
 ---
 ## Oyun Görüntüleri
@@ -366,6 +374,6 @@ for (j = 0; j < width; j++)
 ![Görüntü 2](https://raw.githubusercontent.com/ensargx/tetris/main/assets/img2.PNG)
 
 ![Görüntü 3](https://raw.githubusercontent.com/ensargx/tetris/main/assets/img3.PNG)
----
 
+---
 Ensar GÖK - 22011032

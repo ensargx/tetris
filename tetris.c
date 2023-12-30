@@ -74,7 +74,7 @@ int collisionCheck(Tetromino *block, int height, int width, char board[height][w
     int j;
     for (i = 0; i < 4; i++)
     {
-        for (j = 0; j< 4; j++)
+        for (j = 0; j < 4; j++)
         {
             if (block->shape[i][j] == '*')
             {
@@ -105,9 +105,7 @@ void renderBoard(int height, int width, char board[height][width], int level, in
         int i;
         int j;
         for (i = 0; i < width; i++)
-        {
             printf("─");
-        }
         printf("┐\n");
         for (i = 0; i < height; i++)
         {
@@ -122,16 +120,12 @@ void renderBoard(int height, int width, char board[height][width], int level, in
         moveCursor(PADDING_LEFT, PADDING_TOP + height + 1);
         printf("└");
         for (i = 0; i < width; i++)
-        {
             printf("─");
-        }
         printf("┘\n");
         /* render shadow of the block */
         Tetromino shadow = block;
         while (!collisionCheck(&shadow, height, width, board, 0, 1))
-        {
             shadow.y++;
-        }
         for (i = 0; i < 4; i++)
         {
             for (j = 0; j < 4; j++)
@@ -161,9 +155,7 @@ void renderBoard(int height, int width, char board[height][width], int level, in
         moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 2);
         printf("┌");
         for (i = 0; i < 4; i++)
-        {
             printf("─");
-        }
         printf("┐\n");
         for (i = 1; i < 3; i++)
         {
@@ -185,9 +177,7 @@ void renderBoard(int height, int width, char board[height][width], int level, in
         moveCursor(PADDING_LEFT + width + 3, PADDING_TOP + 5);
         printf("└");
         for (i = 0; i < 4; i++)
-        {
             printf("─");
-        }
         printf("┘\n");
         /* render level */
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 7);
@@ -501,7 +491,6 @@ int main()
             break;
         case 2:
             score += 250;
-
             break;
         case 3:
             score += 500;
