@@ -359,4 +359,13 @@ for (j = 0; j < width; j++)
 > Her 1000 puanda seviye atlanır.
 > Ödevde istenilen '**Oyun tahtasının en üst hattında herhangi bir parçası bulunuyorsa program sona ermelidir.**' burada implement edilmiştir.
 ---
+## Oyun Görüntüleri
+
+![Görüntü 1](https://raw.githubusercontent.com/ensargx/tetris/main/assets/img1.PNG)
+
+![Görüntü 2](https://raw.githubusercontent.com/ensargx/tetris/main/assets/img2.PNG)
+
+![Görüntü 3](https://raw.githubusercontent.com/ensargx/tetris/main/assets/img3.PNG)
+---
+
 Ensar GÖK - 22011032
