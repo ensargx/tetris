@@ -145,7 +145,7 @@ case 'w':
     rotateBlock(&block, height, width, board);
     break;
 case 'q':
-    isGameRunning  =  0;
+    isGameRunning = 0;
     break;
 case ' ':
     while (!collisionCheck(&block, height, width, board, 0, 1))
@@ -157,12 +157,12 @@ default:
     break;
 }
 ```
-> *getChar* fonksiyonu ile kullanıcıdan giriş alınmıştır. Alınan girişe göre mevcut blok **eğer çakışma olmuyorsa** istenilen  pozisyona getirilmektedir.
+> *getChar* fonksiyonu ile kullanıcıdan giriş alınmıştır. Alınan girişe göre mevcut blok **eğer çakışma olmuyorsa** istenilen pozisyona getirilmektedir.
 
 ## Çakışma Durumu
 ### Parametreler
 - *Tetromino \*block*: Çakışma durumu kontrol edilecek blok.
-- *int height,  int width*: Oyun tahtasının boyutları.
+- *int height, int width*: Oyun tahtasının boyutları.
 - *char board[height][width]*: Oyun tahtası.
 - *int delta_x, int delta_y*: Çakışmanın kontrol edileceği koordinat farkı. Örneğin *delta_y* değeri *-1*, *delta_y* değeri *0* verilirse, istenilen parçanın 1 blok aşağıda olduğu varsayılarak kontrol yapılacaktır, bu sayede bloğun aşağı inip inemeyeceği kontrol edilebilir. Aynı şekilde *delta_x* değeri değiştirilerek bloğun sağa veya sola kayıp kayamayacağı kontrol edilebilir.
 
@@ -201,7 +201,7 @@ Fonksiyon verilen bloğun tüm şeklini kontrol edip *'\*'* karakterinin olduğu
 ## Bloğu Döndürme
 ### Parametreler
 - *Tetromino \*block*: Döndürülecek blok.
-- *int height,  int width*: Oyun tahtasının boyutları.
+- *int height, int width*: Oyun tahtasının boyutları.
 - *char board[height][width]*: Oyun tahtası.
 ### İmplementasyon
 ```c
