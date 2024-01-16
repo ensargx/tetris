@@ -415,6 +415,9 @@ int main()
 
     Tetromino block = getRandomBlock(tetrominos, width);
     Tetromino nextBlock = getRandomBlock(tetrominos, width);
+    int x = block.x;
+    int y = block.y;
+    int rotation = block.rotation;
 
     renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
 
@@ -541,7 +544,13 @@ int main()
         }
 
         /* RENDER */
-        renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
+        if (block.y != y || block.x != x || block.rotation != rotation)
+        {
+            renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
+            x = block.x;
+            y = block.y;
+            rotation = block.rotation;
+        }
     }
 
     /* game over */
