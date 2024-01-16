@@ -52,6 +52,27 @@ char getChar()
 #endif
 }
 
+char ch_async;
+void* asyncKeyThread()
+{
+    while (1)
+    {
+        char ch = getChar();
+        char_async = ch;
+    }
+}
+
+char getAsyncKey()
+{
+    if (ch_async)
+    {
+        char ch = ch_async;
+        ch_async = 0;
+        return ch;
+    }
+    return 0;
+}
+
 typedef struct
 {
     char shape[4][4];
