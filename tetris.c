@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pthread.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -53,12 +54,12 @@ char getChar()
 }
 
 char ch_async;
-void* asyncKeyThread()
+void* asyncKeyThread(int* isGameRunning)
 {
-    while (1)
+    while (*isGameRunning)
     {
         char ch = getChar();
-        char_async = ch;
+        ch_async = ch;
     }
 }
 
@@ -417,6 +418,9 @@ int main()
 
     renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
 
+    pthread_t keyThread;
+    pthread_create(&keyThread, NULL, asyncKeyThread, &isGameRunning);
+
     int quit = 0;
     while(!quit)
     {
@@ -425,7 +429,7 @@ int main()
     {
 
         char ch;
-        ch = getChar();
+        ch = getAsyncKey();
         switch (ch)
         {
         case 'a':
@@ -573,6 +577,11 @@ int main()
     }
 
     }
+
+#ifndef _WIN32
+    system("stty cooked");
+    system("stty echo");
+#endif
 
     /* press any key to exit */
     moveCursor(0, PADDING_TOP + height + 2);
