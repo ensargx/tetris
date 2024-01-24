@@ -29,6 +29,15 @@ void clearScreen()
 #endif
 }
 
+void sleepMs(int milliseconds)
+{
+#ifdef _WIN32
+    Sleep(milliseconds);
+#else 
+    usleep(milliseconds * 1000);
+#endif
+}
+
 void moveCursor(int x, int y)
 {
 #ifdef _WIN32
@@ -54,7 +63,7 @@ char getChar()
 }
 
 char ch_async;
-void* asyncKeyThread(int* isGameRunning)
+void asyncKeyThread(int* isGameRunning)
 {
     while (*isGameRunning)
     {
@@ -215,6 +224,7 @@ void renderBoard(int height, int width, char board[height][width], int level, in
         moveCursor(PADDING_LEFT + width + 4, PADDING_TOP + 12);
         printf("←a  →d  ↑w  ↓space Xq");
         moveCursor(0, 0);
+        fflush(stdout);
 }
 
 void rotateBlock(Tetromino *block, int height, int width, char board[height][width])
@@ -422,14 +432,29 @@ int main()
     renderBoard(height, width, board, level, score, maxScore, block, nextBlock);
 
     pthread_t keyThread;
-    pthread_create(&keyThread, NULL, asyncKeyThread, &isGameRunning);
+    pthread_create(&keyThread, NULL, (void*)&asyncKeyThread, (void*)&isGameRunning);
 
+    int framesPassed = 0;
     int quit = 0;
     while(!quit)
     {
 
     while (isGameRunning)
     {
+        /* sleep the thread for 1/60 seconds */ 
+        sleepMs(1000 / 60);
+        
+        /* if enough frame has passed, drop the block */
+        if (framesPassed >= 60 / level)
+        {
+            framesPassed = 0;
+            if (!collisionCheck(&block, height, width, board, 0, 1))
+                block.y++;
+        }
+        else
+        {
+            framesPassed++;
+        }
 
         char ch;
         ch = getAsyncKey();
