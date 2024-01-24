@@ -63,12 +63,14 @@ char getChar()
 }
 
 char ch_async;
+char ch_last;
 void asyncKeyThread(int* isGameRunning)
 {
     while (*isGameRunning)
     {
         char ch = getChar();
         ch_async = ch;
+        ch_last = ch;
     }
 }
 
@@ -487,6 +489,27 @@ int main()
         /* if block is on the ground */
         if (collisionCheck(&block, height, width, board, 0, 1))
         {
+            if (ch_last)
+            {
+                switch (ch_last)
+                {
+                case 'a':
+                    if (!collisionCheck(&block, height, width, board, -1, 0))
+                        block.x--;
+                    break;
+                case 'd':
+                    if (!collisionCheck(&block, height, width, board, 1, 0))
+                        block.x++;
+                    break;
+                case 'w':
+                    rotateBlock(&block, height, width, board);
+                    break;
+                case 'q':
+                    isGameRunning = 0;
+                    break;
+                }
+                ch_last = 0;
+            }
             /* add block to board */
             for (i = 0; i < 4; i++)
             {
